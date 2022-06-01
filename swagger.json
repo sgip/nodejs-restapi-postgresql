@@ -1,0 +1,226 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Este es un ejemplo simple de un proyecto NodeJS API",
+        "version": "1.0.0",
+        "title": "Tareas API",
+        "contact": {
+            "email": "abc@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "schemes": ["http"],
+    "host": "localhost:3081",
+    "basePath": "/api",
+    "paths" : {
+        "/tareas" : {
+            "get" : {
+                "summary" : "Obtener todas las tareas",
+                "description": "Obtener todas las tareas",
+                "produces": ["application/json"],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "operación exitosa",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/todosResponse"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid status value",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/tarea" : {
+            "post" : {
+                "summary" : "Crear una tarea",
+                "description": "Crear una tarea",
+                "produces": ["application/json"],
+                "consumes": ["application/json"],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "tarea object",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "tarea" : {
+                                    "type": "object",
+                                    "$ref": "#/definitions/Tarea"
+                                } 
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "operación exitosa",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/todosResponse"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid status value",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/tarea/" : {
+            "put" : {
+                "summary" : "Actualiza las tareas",
+                "description": "Actualiza las tareas",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "tarea id que necesita ser eliminada",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "tarea object",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "tarea" : {
+                                    "type": "object",
+                                    "$ref": "#/definitions/Tarea"
+                                } 
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/todosResponse"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid status value",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/tarea/{id}" : {
+            "delete" : {
+                "summary" : "Eliminar una tarea",
+                "description": "Eliminar una tarea",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "tarea id que necesita ser eliminada",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/todosResponse"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid status value",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    }
+                }
+            }
+        }
+    }, 
+    "definitions": {
+        "todosResponse": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                     "type": "integer"
+                },
+                "nombre": {
+                    "type": "string"
+                },
+                "descripcion": {
+                    "type": "string"
+                },
+                "creadoPor": {
+                    "type": "string"
+                },
+                "creadoEn": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "actualizadoPor": {
+                    "type": "string"
+                }
+            }
+        },
+        "Tarea": {
+            "type": "object",
+            "properties": {
+                "tarea": {
+                    "type": {
+                        "name": {
+                            "type": "string"
+                        },
+                        "description": {
+                            "type": "string"
+                        },
+                        "createdBy": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "InvalidResponse": {
+            "type": "object",
+            "properties": {
+                "statusCode": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+
+        }
+    }
+}
